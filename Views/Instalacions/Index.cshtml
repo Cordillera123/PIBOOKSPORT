@@ -1,0 +1,53 @@
+﻿@model IEnumerable<IntegradorP.Models.Instalacion>
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+<h1>Index</h1>
+
+<p>
+    <a asp-action="Create">Create New</a>
+</p>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.NombreIns)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.DireccionIns)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.DescripcioIns)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Deporte)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.NombreIns)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.DireccionIns)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.DescripcioIns)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Deporte.DeporteId)
+            </td>
+            <td>
+                <a asp-action="Edit" asp-route-id="@item.InstalacionId">Edit</a> |
+                <a asp-action="Details" asp-route-id="@item.InstalacionId">Details</a> |
+                <a asp-action="Delete" asp-route-id="@item.InstalacionId">Delete</a>
+            </td>
+        </tr>
+}
+    </tbody>
+</table>
