@@ -15,6 +15,7 @@ namespace IntegradorP.Controllers
 
         public IActionResult Index()
         {
+            ViewData["usuario"] = Request.Cookies["user"];
             return View();
         }
 

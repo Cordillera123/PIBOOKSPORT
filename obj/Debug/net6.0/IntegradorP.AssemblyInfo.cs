@@ -14,7 +14,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("IntegradorP")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+1c375fcb60ea20c8407b778b38bde86bb34a620a")]
 [assembly: System.Reflection.AssemblyProductAttribute("IntegradorP")]
 [assembly: System.Reflection.AssemblyTitleAttribute("IntegradorP")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]
