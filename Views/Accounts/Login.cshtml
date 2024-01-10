@@ -5,19 +5,71 @@
 }
 
 <style>
+    body {
+        margin: 0;
+        font-family: 'Poppins', sans-serif;
+        background: #f5f5f5; /* Fondo blanco */
+        color: #333; /* Color de texto oscuro para contrastar con el fondo blanco */
+    }
+
+    .cards {
+        display: flex;
+        flex-wrap: wrap;
+    }
+
+    .card {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        width: 50%;
+        height: 100vh;
+        background-size: cover;
+        background-position: center;
+        background-repeat: no-repeat;
+        font-family: 'Poppins', sans-serif; /* Cambiar el tipo de letra */
+        border-radius: 10px;
+        margin: 10px;
+        transition: background-color 0.3s ease; /* Animación de cambio de color */
+    }
+
+    h2 {
+        font-size: 42px;
+    }
+
+    p {
+        font-size: 18px;
+        max-width: 300px;
+        text-align: center;
+    }
+
+    /* Colores de fondo para diferentes índices */
+    .card:nth-child(odd) {
+        background-color: #e6f7ff; /* Color claro */
+    }
+
+    .card:nth-child(even) {
+        background-color: #ffd6cc; /* Color claro */
+    }
+
+    .card:hover {
+        background-color: #ccffcc; /* Color claro */
+    }
+
+    /* Estilos del formulario */
     .form-group {
-        margin-bottom: 15px;
+        margin-bottom: 20px;
     }
 
     .form-control {
         width: 100%;
-        padding: 10px;
-        border-radius: 5px;
-        border: 1px solid #ccc;
+        padding: 15px;
+        border-radius: 8px;
+        border: 2px solid #ccc; /* Bordes suaves */
     }
 
     .btn-primary {
-        padding: 10px 20px;
+        padding: 15px 30px;
         background-color: #007bff;
         border: none;
         color: white;
@@ -29,38 +81,36 @@
         }
 </style>
 
-<form method="post">
-    <div class="container register">
-        <div class="row">
-            <div class="col-md-3 register-left"></div>
-            <div class="col-md-9 register-right">
-                <div class="tab-content">
-                    <div class="col-md-6">
-                        @if (!string.IsNullOrEmpty(ViewData["error"] as string))
-                        {
-                            <div class="alert alert-danger">
-                                @ViewData["error"]
-                            </div>
-                        }
-
-                        <div class="form-group">
-                            <label asp-for="EmailUsu"></label>
-                            <input asp-for="EmailUsu" class="form-control" placeholder="Email" type="text" />
-                            <span asp-validation-for="EmailUsu" class="text-danger"></span>
-                        </div>
-
-                        <div class="form-group">
-                            <label asp-for="Password"></label>
-                            <input asp-for="Password" class="form-control" placeholder="Password" type="password" />
-                            <span asp-validation-for="Password" class="text-danger"></span>
-                        </div>
-
-                        <div class="form-group">
-                            <input type="submit" value="Log in" class="btn btn-primary" asp-action="Login" asp-controller="Accounts" />
-                        </div>
+<div class="container">
+    <div class="row justify-content-center align-items-center" style="height: 80vh;">
+        <!-- Ajusta la altura a tu preferencia -->
+        <div class="col-md-6 rounded">
+            <!-- Bordes redondeados -->
+            <form method="post">
+                @if (ViewData["error"] != null)
+                {
+                    <div class="alert alert-danger">
+                        @ViewData["error"]
                     </div>
+                }
+
+                <div class="form-group">
+                    <label asp-for="EmailUsu">Correo electrónico</label>
+                    <input asp-for="EmailUsu" class="form-control" placeholder="Email" type="text" />
+                    <span asp-validation-for="EmailUsu" class="text-danger"></span>
                 </div>
-            </div>
+
+                <div class="form-group">
+                    <label asp-for="Password">Contraseña</label>
+                    <input asp-for="Password" class="form-control" placeholder="Password" type="password" />
+                    <span asp-validation-for="Password" class="text-danger"></span>
+                </div>
+
+                <div class="form-group">
+                    <input type="submit" value="Log in" class="btn btn-primary" asp-action="Login" asp-controller="Accounts" />
+                    <a class="btn btn-secondary" asp-area="" asp-controller="Accounts" asp-action="Registrar">Registrarse</a>
+                </div>
+            </form>
         </div>
     </div>
-</form>
+</div>

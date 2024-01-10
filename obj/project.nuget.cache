@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "q4aLYBmBd8uiQSWrdrKkA6UshUKdhluW5tPgC/Zx9cdvSCR9Ahy2PSCbXiIjXiRz21A1J9WVLXeP/GOUtr/sqA==",
+  "dgSpecHash": "REeo9F2NzPukr8gwg/9rV0iXWeKZLS2E0f8Sn0BMtdZOelKicmF/gsQs1hdw5eJmb50RlqUFzmKHmvA8mWuF/A==",
   "success": true,
-  "projectFilePath": "C:\\Users\\59396\\Desktop\\INTEGRADOR\\IntegradorP\\IntegradorP\\IntegradorP.csproj",
+  "projectFilePath": "C:\\Users\\59396\\Desktop\\Clonados\\PruebaIntegrador\\IntegradorP.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\59396\\.nuget\\packages\\azure.core\\1.25.0\\azure.core.1.25.0.nupkg.sha512",
     "C:\\Users\\59396\\.nuget\\packages\\azure.identity\\1.7.0\\azure.identity.1.7.0.nupkg.sha512",

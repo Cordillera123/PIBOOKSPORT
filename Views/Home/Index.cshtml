@@ -1,8 +1,97 @@
-﻿@{
-    ViewData["Title"] = "Home Page";
-}
+﻿<!DOCTYPE html>
+<html lang="es">
 
-<div class="text-center">
-    <h1 class="display-4">@ViewData["usuario"]</h1>
-    <h2>ESTE ES EL INDEX</h2>
-</div>
+<head>
+  <meta charset="utf-8">
+
+  <title>Instalaciones Deportivas</title>
+
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;700&display=swap" rel="stylesheet">
+
+  <style>
+    body {
+      margin: 0;
+      font-family: 'Poppins', sans-serif;  
+      background: #1D2026;
+      color: white;
+    }
+       
+    .cards {
+      display: flex;
+      flex-wrap: wrap; 
+    }
+    
+    .card {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      width: 50%;
+      height: 100vh;
+      background-size: cover;
+      background-position: center;
+      background-repeat: no-repeat; 
+    }
+    
+    h2 {
+      font-size: 42px;  
+    }
+    
+    p {
+      font-size: 18px;
+      max-width: 300px;
+      text-align: center; 
+    }
+
+    .btn {
+      background-color: #FF6347;
+      color: white;
+      padding: 10px 20px;
+      margin-top: 20px;
+      border: none;
+      cursor: pointer;
+      width: 200px;
+      opacity: 0.9;
+    }
+
+    .btn:hover {
+      opacity: 1;
+    }
+
+  </style>
+
+</head>
+
+<body>   
+
+  <div class="cards">
+
+    <div class="card" style="background-image: url('https://img.freepik.com/foto-gratis/balon-futbol-sobre-hierba-verde-ia-generativa-enfoque-selectivo_188544-9533.jpg?size=626&ext=jpg&ga=GA1.1.1880011253.1704585600&semt=ais');">
+      <h2>Fútbol</h2>
+      <p>Canchas profesionales de césped sintético</p>
+      <button class="btn">Reservar ahora</button>
+    </div>
+
+    <div class="card" style="background-image: url('https://wallpaperaccess.com/full/798768.jpg');">
+      <h2>Basquet</h2>
+      <p>Canchas durasy cubiertas </p>
+      <button class="btn">Reservar ahora</button>
+    </div>
+
+    <div class="card" style="background-image: url('https://media.istockphoto.com/id/986124982/es/v%C3%ADdeo/jugadores-de-voleibol-femenino-jugando-voleibol-4k.jpg?s=640x640&k=20&c=m6yjoYbmm772jbv750po8ssqoWX6a6GuZPlag3hH5uE=');">
+      <h2>Ecuavolley</h2>
+      <p>Espacios limpios y sin fallas </p>
+      <button class="btn">Reservar ahora</button>
+    </div>
+
+    <div class="card" style="background-image: url('https://wallpaperaccess.com/full/1078069.jpg');">
+      <h2>Gimnasio</h2>
+      <p>Máquinas y pesas para entrenamiento</p>
+      <button class="btn">Reservar ahora</button>
+    </div>
+
+  </div>
+
+</body>
+
+</html>
