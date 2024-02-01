@@ -19,22 +19,17 @@
                 @Html.DisplayNameFor(model => model.HoraInicio)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.HoraFin)
+                @Html.DisplayNameFor(model => model.Instalacion.NombreIns)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.Precio)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Instalacion)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Usuario)
+                @Html.DisplayNameFor(model => model.Usuario.NombreUsu)
             </th>
             <th></th>
         </tr>
     </thead>
     <tbody>
-@foreach (var item in Model) {
+    @foreach (var item in Model)
+    {
         <tr>
             <td>
                 @Html.DisplayFor(modelItem => item.Fecha)
@@ -43,16 +38,16 @@
                 @Html.DisplayFor(modelItem => item.HoraInicio)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.HoraFin)
+                @if (item.Instalacion != null)
+                {
+                    @Html.DisplayFor(modelItem => item.Instalacion.NombreIns)
+                }
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.Precio)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Instalacion.InstalacionId)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Usuario.UsuarioId)
+                @if (item.Usuario != null)
+                {
+                    @Html.DisplayFor(modelItem => item.Usuario.NombreUsu)
+                }
             </td>
             <td>
                 <a asp-action="Edit" asp-route-id="@item.ReservaId">Edit</a> |
@@ -60,6 +55,6 @@
                 <a asp-action="Delete" asp-route-id="@item.ReservaId">Delete</a>
             </td>
         </tr>
-}
+    }
     </tbody>
 </table>

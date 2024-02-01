@@ -4,6 +4,9 @@ using Microsoft.Data.SqlClient;
 using Microsoft.EntityFrameworkCore;
 using System.Data;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Authentication.Cookies;
+using Microsoft.AspNetCore.Authentication;
+using System.Security.Claims;
 
 public class AccountsController : Controller
 {
@@ -13,14 +16,13 @@ public class AccountsController : Controller
     {
         _context = context;
     }
-
+[HttpGet]
     public ActionResult Registrar()
     {
         return View("Registrar");
     }
-
 [HttpPost]
-public ActionResult Registrar(Usuario usuario)
+public async Task<ActionResult> Registrar(Usuario usuario)
 {
     try
     {
@@ -28,7 +30,24 @@ public ActionResult Registrar(Usuario usuario)
         {
             using (SqlConnection con = new SqlConnection(_context.Database.GetDbConnection().ConnectionString))
             {
-                using (SqlCommand cmd = new("crear_usuario", con))
+                // Verificar si el correo electrónico ya existe
+                using (SqlCommand cmdCheck = new SqlCommand("SELECT COUNT(*) FROM Usuario WHERE EmailUsu = @EmailUsu", con))
+                {
+                    cmdCheck.Parameters.Add("@EmailUsu", SqlDbType.VarChar).Value = usuario.EmailUsu;
+                    con.Open();
+                    int userCount = (int)cmdCheck.ExecuteScalar();
+                    con.Close();
+
+                    if (userCount > 0)
+                    {
+                        ModelState.AddModelError("EmailUsu", "Este correo electrónico ya está en uso.");
+                        ViewData["error"] = "Error al registrar el usuario";
+                        return View("Registrar", usuario);
+                    }
+                }
+
+                // Crear el nuevo usuario
+                using (SqlCommand cmd = new SqlCommand("crear_usuario", con))
                 {
                     cmd.CommandType = CommandType.StoredProcedure;
                     cmd.Parameters.Add("@NombreUsu", SqlDbType.VarChar).Value = usuario.NombreUsu;
@@ -48,12 +67,32 @@ public ActionResult Registrar(Usuario usuario)
                         con.Close();
                     }
                 }
+
+                // Iniciar sesión después de registrar al usuario
+                var claims = new List<Claim>
+                {
+                    new Claim(ClaimTypes.Name, usuario.NombreUsu),
+                    new Claim(ClaimTypes.Email, usuario.EmailUsu),
+                    new Claim("Cedula", usuario.CedulaUsu)
+                    // Agrega más claims según sea necesario
+                };
+
+                var claimsIdentity = new ClaimsIdentity(
+                    claims, CookieAuthenticationDefaults.AuthenticationScheme);
+
+                var authProperties = new AuthenticationProperties();
+
+                await HttpContext.SignInAsync(
+                    CookieAuthenticationDefaults.AuthenticationScheme, 
+                    new ClaimsPrincipal(claimsIdentity), 
+                    authProperties);
             }
-            return RedirectToAction("Index", "Cliente");
+            return RedirectToAction("Create", "Reservas");
         }
     }
     catch(Exception)
     {
+        ViewData["error"] = "Error al registrar el usuario";
         return View("Registrar");
     }
     ViewData["error"] = "Error al registrar el usuario";
@@ -66,9 +105,8 @@ public ActionResult Login()
 {
     return View("Login");
 }
-
 [HttpPost]
-public ActionResult Login(LoginResult l)
+public async Task<ActionResult> Login(LoginResult l)
 {
     try
     {
@@ -89,23 +127,37 @@ public ActionResult Login(LoginResult l)
                     cmd.ExecuteNonQuery();
 
                     var userType = outputParam.Value;
-                    //No te olvides que Usuario no enncotrado va sin la o .Caso contrario no funciona cuando colocas mal la contrasenia 
                     if (userType != null && userType.ToString() != "Usuario no encontrad")
                     {
                         // Almacenar el tipo de usuario en una cookie
-                       // Response.Cookies.Append("userType", userType.ToString());
-                       // Response.Cookies.Append("user", "BIENVENIDO " + l.EmailUsu);
+                        Response.Cookies.Append("User", "BIENVENIDO " + l.EmailUsu);
+
+                        // Set user identity
+                        var claims = new List<Claim>
+                        {
+                            new Claim(ClaimTypes.Name, l.EmailUsu)
+                        };
+
+                        var claimsIdentity = new ClaimsIdentity(
+                            claims, CookieAuthenticationDefaults.AuthenticationScheme);
+
+                        var authProperties = new AuthenticationProperties();
+
+                        await HttpContext.SignInAsync(
+                            CookieAuthenticationDefaults.AuthenticationScheme, 
+                            new ClaimsPrincipal(claimsIdentity), 
+                            authProperties);
 
                         // Redirigir al usuario a diferentes páginas dependiendo de su tipo
                         if (userType.ToString() == "Cliente")
                         {
-                            return RedirectToAction("Index", "Cliente");
+                            return RedirectToAction("Create", "Reservas");
                         }
                         else if (userType.ToString() == "Otro")
                         {
-                            return RedirectToAction("Index", "Cliente");
+                            return RedirectToAction("Create", "Reservas");
                         }
-                         else if (userType.ToString() == "Super admin")
+                        else if (userType.ToString() == "Super admin")
                         {
                             return RedirectToAction("Index", "SuperAdmin");
                         }
@@ -134,9 +186,10 @@ public ActionResult Login(LoginResult l)
     ViewData["error"] = "Error de credenciales";
     return View("Login", l);
 }
-    public ActionResult Logout()
+    public async Task<ActionResult> Logout()
 {
-    Response.Cookies.Delete("user");  
+    await HttpContext.SignOutAsync(CookieAuthenticationDefaults.AuthenticationScheme);
+    Response.Cookies.Delete("User");  
     return RedirectToAction("Index", "Home");
 }
 

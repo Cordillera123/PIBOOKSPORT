@@ -1,0 +1,23 @@
+@{
+    var reserva = ViewData["Reserva"] as Reserva;
+    var recursos = ViewData["Recursos"] as SelectList;
+}
+
+<h1>Agregar recurso a la reserva @reserva.ReservaId</h1>
+
+<form asp-action="AddResourceToReservation" method="post">
+    <input type="hidden" name="ReservaId" value="@reserva.ReservaId" />
+
+    <div class="form-group">
+        @foreach (var recurso in recursos)
+        {
+            <div style="display: inline-block; margin: 10px; padding: 10px; border: 1px solid #ccc;">
+                <input type="checkbox" id="RecursoId" name="RecursoId" value="@recurso.Value" />
+                <label for="RecursoId">@recurso.Text</label>
+             <input type="number" class="form-control" id="Cantidad" name="Cantidad" min="1">
+            </div>
+        }
+    </div>
+
+    <button type="submit" class="btn btn-primary">Agregar recurso</button>
+</form>

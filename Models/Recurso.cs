@@ -11,5 +11,7 @@ public partial class Recurso
 
     public string? DescripcionRec { get; set; }
 
+    public double? ValorUnitario { get; set; }
+
     public virtual ICollection<ReservaRecurso> ReservaRecursos { get; set; } = new List<ReservaRecurso>();
 }

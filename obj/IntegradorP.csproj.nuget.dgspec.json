@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\59396\\Desktop\\Clonados\\PruebaIntegrador\\IntegradorP.csproj": {}
+    "C:\\Users\\59396\\Desktop\\PruebaIntegrador\\IntegradorP.csproj": {}
   },
   "projects": {
-    "C:\\Users\\59396\\Desktop\\Clonados\\PruebaIntegrador\\IntegradorP.csproj": {
+    "C:\\Users\\59396\\Desktop\\PruebaIntegrador\\IntegradorP.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\59396\\Desktop\\Clonados\\PruebaIntegrador\\IntegradorP.csproj",
+        "projectUniqueName": "C:\\Users\\59396\\Desktop\\PruebaIntegrador\\IntegradorP.csproj",
         "projectName": "IntegradorP",
-        "projectPath": "C:\\Users\\59396\\Desktop\\Clonados\\PruebaIntegrador\\IntegradorP.csproj",
+        "projectPath": "C:\\Users\\59396\\Desktop\\PruebaIntegrador\\IntegradorP.csproj",
         "packagesPath": "C:\\Users\\59396\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\59396\\Desktop\\Clonados\\PruebaIntegrador\\obj\\",
+        "outputPath": "C:\\Users\\59396\\Desktop\\PruebaIntegrador\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
           "C:\\Users\\59396\\AppData\\Roaming\\NuGet\\NuGet.Config",

@@ -12,39 +12,44 @@
     <div class="col-md-4">
         <form asp-action="Edit">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-            <input type="hidden" asp-for="ReservaId" />
+
             <div class="form-group">
                 <label asp-for="Fecha" class="control-label"></label>
-                <input asp-for="Fecha" class="form-control" />
+                <input asp-for="Fecha" type="date" class="form-control" />
                 <span asp-validation-for="Fecha" class="text-danger"></span>
             </div>
+
             <div class="form-group">
                 <label asp-for="HoraInicio" class="control-label"></label>
-                <input asp-for="HoraInicio" class="form-control" />
+                <input asp-for="HoraInicio" type="time" class="form-control"  />
                 <span asp-validation-for="HoraInicio" class="text-danger"></span>
             </div>
+
             <div class="form-group">
                 <label asp-for="HoraFin" class="control-label"></label>
-                <input asp-for="HoraFin" class="form-control" />
+                <input asp-for="HoraFin" type="time" class="form-control"  />
                 <span asp-validation-for="HoraFin" class="text-danger"></span>
             </div>
+
             <div class="form-group">
                 <label asp-for="UsuarioId" class="control-label"></label>
                 <select asp-for="UsuarioId" class="form-control" asp-items="ViewBag.UsuarioId"></select>
-                <span asp-validation-for="UsuarioId" class="text-danger"></span>
             </div>
-            <div class="form-group">
-                <label asp-for="Precio" class="control-label"></label>
-                <input asp-for="Precio" class="form-control" />
-                <span asp-validation-for="Precio" class="text-danger"></span>
-            </div>
+
+            @* Campo Precio oculto *@
+            <input asp-for="Precio" type="hidden" />
+
             <div class="form-group">
                 <label asp-for="InstalacionId" class="control-label"></label>
                 <select asp-for="InstalacionId" class="form-control" asp-items="ViewBag.InstalacionId"></select>
-                <span asp-validation-for="InstalacionId" class="text-danger"></span>
             </div>
+
+           
+
             <div class="form-group">
+
                 <input type="submit" value="Save" class="btn btn-primary" />
+                
             </div>
         </form>
     </div>
@@ -55,5 +60,7 @@
 </div>
 
 @section Scripts {
-    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
 }

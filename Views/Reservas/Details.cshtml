@@ -46,6 +46,44 @@
         <dd class = "col-sm-10">
             @Html.DisplayFor(model => model.Usuario.UsuarioId)
         </dd>
+        
+        <dt class = "col-sm-2">
+            Recursos reservados
+        </dt>
+        <dd class = "col-sm-10">
+            @if (Model.ReservaRecursos != null && Model.ReservaRecursos.Any())
+            {
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <th>Recurso</th>
+                            <th>Cantidad</th>
+                            <th>Valor total</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var reservaRecurso in Model.ReservaRecursos)
+                        {
+                            <tr>
+                                <td>@reservaRecurso.Recurso.NombreRec</td> <!-- Asegúrate de que tu modelo Recurso tenga una propiedad Nombre -->
+                                <td>@reservaRecurso.Cantidad</td>
+                                <td>@reservaRecurso.ValorTotalRecurso</td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            }
+            else
+            {
+                <p>No se reservaron recursos.</p>
+            }
+        </dd>
+         <dt class = "col-sm-2">
+            Valor total de la reserva
+        </dt>
+        <dd class = "col-sm-10">
+            @(Model.ReservaRecursos.Sum(rr => rr.ValorTotalRecurso) + Model.Precio)
+        </dd>
     </dl>
 </div>
 <div>

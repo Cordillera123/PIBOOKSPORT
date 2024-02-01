@@ -5,41 +5,45 @@ a.navbar-brand[b-szhdly13kp] {
   white-space: normal;
   text-align: center;
   word-break: break-all;
+  color: #333; /* Dark grey for text */
 }
 
 a[b-szhdly13kp] {
-  color: #0077cc;
+  color: #555; /* Medium grey for links */
 }
 
 .btn-primary[b-szhdly13kp] {
-  color: #fff;
-  background-color: #1b6ec2;
-  border-color: #1861ac;
+  color: #fff; /* White text on buttons for contrast */
+  background-color: #444; /* Dark grey for primary buttons */
+  border-color: #333; /* Darker grey for button borders */
 }
 
 .nav-pills .nav-link.active[b-szhdly13kp], .nav-pills .show > .nav-link[b-szhdly13kp] {
-  color: #fff;
-  background-color: #1b6ec2;
-  border-color: #1861ac;
+  color: #fff; /* White text on active links for contrast */
+  background-color: #444; /* Dark grey for active links */
+  border-color: #333; /* Darker grey for active link borders */
 }
 
 .border-top[b-szhdly13kp] {
-  border-top: 1px solid #e5e5e5;
+  border-top: 1px solid #ccc; /* Light grey for top borders */
 }
 .border-bottom[b-szhdly13kp] {
-  border-bottom: 1px solid #e5e5e5;
+  border-bottom: 1px solid #ccc; /* Light grey for bottom borders */
 }
 
 .box-shadow[b-szhdly13kp] {
-  box-shadow: 0 .25rem .75rem rgba(0, 0, 0, .05);
+  box-shadow: 0 .25rem .75rem rgba(0, 0, 0, .05); /* Keep box shadow color */
 }
 
 button.accept-policy[b-szhdly13kp] {
   font-size: 1rem;
   line-height: inherit;
+  color: #fff; /* White text on buttons for contrast */
+  background-color: #444; /* Dark grey for buttons */
 }
 
 .footer[b-szhdly13kp] {
+  background-color: #000000; /* Dark grey for footer */
   position: absolute;
   bottom: 0;
   width: 100%;
