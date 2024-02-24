@@ -8,6 +8,60 @@
     <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
     <link rel="stylesheet" href="~/IntegradorP.styles.css" asp-append-version="true" />
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+    <style>
+        a.navbar-brand {
+            white-space: normal;
+            text-align: center;
+            word-break: break-all;
+            color: #000000; /* Color del texto para la marca en la barra de navegación */
+            background-color: #f6f6f6; /* Cambio de color a gris para el fondo del navbar */
+        }
+
+        a {
+            color: #c4c3ca; /* Color gris para los enlaces */
+        }
+
+        .btn-primary {
+            color: #fff; /* Texto blanco en botones para contraste */
+            background-color: #010101; /* Color oscuro para botones primarios */
+            border-color: #030303; /* Color más oscuro para bordes de botones */
+        }
+
+        .nav-pills .nav-link.active, .nav-pills .show > .nav-link {
+            color: #fff; /* Texto blanco en enlaces activos para contraste */
+            background-color: #0b122b; /* Color oscuro para enlaces activos */
+            border-color: #091336; /* Color más oscuro para bordes de enlaces activos */
+        }
+
+        .border-top {
+            border-top: 1px solid #ccc; /* Gris claro para bordes superiores */
+        }
+
+        .border-bottom {
+            border-bottom: 1px solid #ccc; /* Gris claro para bordes inferiores */
+        }
+
+        .box-shadow {
+            box-shadow: 0 .25rem .75rem rgba(0, 0, 0, .05); /* Mantén el color de la sombra */
+        }
+
+        button.accept-policy {
+            font-size: 1rem;
+            line-height: inherit;
+            color: #fff; /* Texto blanco en botones para contraste */
+            background-color: #202e5c; /* Color oscuro para botones */
+        }
+
+        .footer {
+            background-color: #000000; /* Color oscuro para el pie de página */
+            position: absolute;
+            bottom: 0;
+            width: 100%;
+            white-space: nowrap;
+            line-height: 60px;
+            color: #c4c3ca; /* Color del texto para el pie de página */
+        }
+    </style>
 </head>
 <body>
     <header>
@@ -23,14 +77,17 @@
                             <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Index">Home</a>
                         </li>
                   
+
                         <li class="nav-item">
                             <a class="nav-link text-dark" asp-area="" asp-controller="Reservas" asp-action="Create">Reservas</a>
                         </li>
+                        @if (User.IsInRole("SuperAdmin"))
+                    {
                         <li class="nav-item">
                             <a class="nav-link text-dark" asp-area="" asp-controller="Usuarios" asp-action="Index">Users</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Instalacions" asp-action="Index">Canchas</a>
+                            <a class="nav-link text-dark" asp-area="" asp-controller="Reservas1" asp-action="Index">ORESERVAS</a>
                         </li>
                         <li class="nav-item">
                             <a class="nav-link text-dark" asp-area="" asp-controller="Perfils" asp-action="Index">Perfil</a>
@@ -38,6 +95,14 @@
                         <li class="nav-item">
                             <a class="nav-link text-dark" asp-area="" asp-controller="UsuarioPerfils" asp-action="Index">UsuariopERFIL</a>
                         </li>
+                        <li class="nav-item">
+                            <a class="nav-link text-dark" asp-area="" asp-controller="Instalacions" asp-action="Index">Administar Instalaciones</a>
+                        </li>
+                          <li class="nav-item">
+                            <a class="nav-link text-dark" asp-area="" asp-controller="Recursos" asp-action="Index">Administar Recursos</a>
+                        </li>
+}
+
                     </ul>
                     <ul class="navbar-nav">
                         @if (User.Identity.IsAuthenticated)
@@ -67,7 +132,7 @@
             © 2023 - IntegradorP - <a asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
         </div>
     </footer>
-    <script src="~/lib/jquery/dist/jquery.min.js"></script>
+     <script src="~/lib/jquery/dist/jquery.min.js"></script>
     <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
     <script src="~/js/site.js" asp-append-version="true"></script>
     @await RenderSectionAsync("Scripts", required: false)

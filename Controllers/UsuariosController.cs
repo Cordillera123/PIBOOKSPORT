@@ -112,7 +112,7 @@ namespace IntegradorP.Controllers
                         throw;
                     }
                 }
-                return RedirectToAction(nameof(Index));
+                return RedirectToAction(nameof(Create));
             }
             return View(usuario);
         }

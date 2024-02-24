@@ -1,4 +1,4 @@
-﻿    using System;
+﻿using System;
 using System.Collections.Generic;
 using Microsoft.EntityFrameworkCore;
 
@@ -41,7 +41,7 @@ public partial class BaseDatosProyectoContext : DbContext
     {
         modelBuilder.Entity<Deporte>(entity =>
         {
-            entity.HasKey(e => e.DeporteId).HasName("PK__Deporte__A8A8687BED8510DE");
+            entity.HasKey(e => e.DeporteId).HasName("PK__Deporte__A8A8687B7E25BF2C");
 
             entity.ToTable("Deporte");
 
@@ -53,7 +53,7 @@ public partial class BaseDatosProyectoContext : DbContext
 
         modelBuilder.Entity<Empresa>(entity =>
         {
-            entity.HasKey(e => e.EmpresaId).HasName("PK__Empresa__7B9F21362C759C9B");
+            entity.HasKey(e => e.EmpresaId).HasName("PK__Empresa__7B9F2136A04D7965");
 
             entity.ToTable("Empresa");
 
@@ -65,7 +65,7 @@ public partial class BaseDatosProyectoContext : DbContext
 
         modelBuilder.Entity<Instalacion>(entity =>
         {
-            entity.HasKey(e => e.InstalacionId).HasName("PK__Instalac__63F5EA95A1BE54B9");
+            entity.HasKey(e => e.InstalacionId).HasName("PK__Instalac__63F5EA95CC29C5D9");
 
             entity.ToTable("Instalacion");
 
@@ -88,7 +88,7 @@ public partial class BaseDatosProyectoContext : DbContext
 
         modelBuilder.Entity<Perfil>(entity =>
         {
-            entity.HasKey(e => e.PerfilId).HasName("PK__Perfil__0C005B66A5B06797");
+            entity.HasKey(e => e.PerfilId).HasName("PK__Perfil__0C005B66650D2089");
 
             entity.ToTable("Perfil");
 
@@ -100,7 +100,7 @@ public partial class BaseDatosProyectoContext : DbContext
 
         modelBuilder.Entity<Recurso>(entity =>
         {
-            entity.HasKey(e => e.RecursoId).HasName("PK__Recurso__82F2B1A4B420BC3E");
+            entity.HasKey(e => e.RecursoId).HasName("PK__Recurso__82F2B1A4D037E6C9");
 
             entity.ToTable("Recurso");
 
@@ -115,7 +115,7 @@ public partial class BaseDatosProyectoContext : DbContext
 
         modelBuilder.Entity<Reserva>(entity =>
         {
-            entity.HasKey(e => e.ReservaId).HasName("PK__Reserva__C3993703BFC4D9D8");
+            entity.HasKey(e => e.ReservaId).HasName("PK__Reserva__C39937032AAC4655");
 
             entity.ToTable("Reserva");
 
@@ -135,7 +135,7 @@ public partial class BaseDatosProyectoContext : DbContext
 
         modelBuilder.Entity<ReservaRecurso>(entity =>
         {
-            entity.HasKey(e => e.Rrid).HasName("PK__ReservaR__E3054D1391F33545");
+            entity.HasKey(e => e.Rrid).HasName("PK__ReservaR__E3054D13DFD28552");
 
             entity.ToTable("ReservaRecurso");
 
@@ -153,7 +153,7 @@ public partial class BaseDatosProyectoContext : DbContext
 
         modelBuilder.Entity<Usuario>(entity =>
         {
-            entity.HasKey(e => e.UsuarioId).HasName("PK__Usuario__2B3DE798D77390BB");
+            entity.HasKey(e => e.UsuarioId).HasName("PK__Usuario__2B3DE798BD6866E0");
 
             entity.ToTable("Usuario");
 
@@ -174,7 +174,7 @@ public partial class BaseDatosProyectoContext : DbContext
 
         modelBuilder.Entity<UsuarioPerfil>(entity =>
         {
-            entity.HasKey(e => e.Upid).HasName("PK__UsuarioP__B6A76C771349D1AA");
+            entity.HasKey(e => e.Upid).HasName("PK__UsuarioP__B6A76C77549CBB8B");
 
             entity.ToTable("UsuarioPerfil");
 

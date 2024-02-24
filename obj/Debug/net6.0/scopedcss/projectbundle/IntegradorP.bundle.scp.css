@@ -1,53 +1,55 @@
 /* _content/IntegradorP/Views/Shared/_Layout.cshtml.rz.scp.css */
-/* Please see documentation at https://docs.microsoft.com/aspnet/core/client-side/bundling-and-minification
-for details on configuring this project to bundle and minify static web assets. */
+/* Por favor, consulta la documentación en https://docs.microsoft.com/aspnet/core/client-side/bundling-and-minification
+para obtener detalles sobre cómo configurar este proyecto para agrupar y minimizar los activos web estáticos. */
 
 a.navbar-brand[b-szhdly13kp] {
   white-space: normal;
   text-align: center;
   word-break: break-all;
-  color: #333; /* Dark grey for text */
+  color: #000000; /* Color del texto para la marca en la barra de navegación */
+  background-color: rgb(15, 15, 15);
 }
 
 a[b-szhdly13kp] {
-  color: #555; /* Medium grey for links */
+  color: #c4c3ca; /* Color gris para los enlaces */
 }
 
 .btn-primary[b-szhdly13kp] {
-  color: #fff; /* White text on buttons for contrast */
-  background-color: #444; /* Dark grey for primary buttons */
-  border-color: #333; /* Darker grey for button borders */
+  color: #fff; /* Texto blanco en botones para contraste */
+  background-color: #0e2059; /* Color oscuro para botones primarios */
+  border-color: #000000; /* Color más oscuro para bordes de botones */
 }
 
 .nav-pills .nav-link.active[b-szhdly13kp], .nav-pills .show > .nav-link[b-szhdly13kp] {
-  color: #fff; /* White text on active links for contrast */
-  background-color: #444; /* Dark grey for active links */
-  border-color: #333; /* Darker grey for active link borders */
+  color: #fff; /* Texto blanco en enlaces activos para contraste */
+  background-color: #0c0d0e; /* Color oscuro para enlaces activos */
+  border-color: #102770; /* Color más oscuro para bordes de enlaces activos */
 }
 
 .border-top[b-szhdly13kp] {
-  border-top: 1px solid #ccc; /* Light grey for top borders */
+  border-top: 1px solid #ccc; /* Gris claro para bordes superiores */
 }
 .border-bottom[b-szhdly13kp] {
-  border-bottom: 1px solid #ccc; /* Light grey for bottom borders */
+  border-bottom: 1px solid #ccc; /* Gris claro para bordes inferiores */
 }
 
 .box-shadow[b-szhdly13kp] {
-  box-shadow: 0 .25rem .75rem rgba(0, 0, 0, .05); /* Keep box shadow color */
+  box-shadow: 0 .25rem .75rem rgba(0, 0, 0, .05); /* Mantén el color de la sombra */
 }
 
 button.accept-policy[b-szhdly13kp] {
   font-size: 1rem;
   line-height: inherit;
-  color: #fff; /* White text on buttons for contrast */
-  background-color: #444; /* Dark grey for buttons */
+  color: #fff; /* Texto blanco en botones para contraste */
+  background-color: #02123c; /* Color oscuro para botones */
 }
 
 .footer[b-szhdly13kp] {
-  background-color: #000000; /* Dark grey for footer */
+  background-color: #211f1f; /* Color oscuro para el pie de página */
   position: absolute;
   bottom: 0;
   width: 100%;
   white-space: nowrap;
   line-height: 60px;
+  color: #c4c3ca; /* Color del texto para el pie de página */
 }

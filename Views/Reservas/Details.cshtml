@@ -4,89 +4,92 @@
     ViewData["Title"] = "Details";
 }
 
-<h1>Details</h1>
+<div class="container">
+    <h1 class="text-dark">Detalles de la Reserva</h1>
+    <hr class="border-dark" />
 
-<div>
-    <h4>Reserva</h4>
-    <hr />
-    <dl class="row">
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.Fecha)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.Fecha)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.HoraInicio)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.HoraInicio)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.HoraFin)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.HoraFin)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.Precio)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.Precio)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.Instalacion)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.Instalacion.InstalacionId)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.Usuario)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.Usuario.UsuarioId)
-        </dd>
-        
-        <dt class = "col-sm-2">
-            Recursos reservados
-        </dt>
-        <dd class = "col-sm-10">
-            @if (Model.ReservaRecursos != null && Model.ReservaRecursos.Any())
-            {
-                <table class="table">
-                    <thead>
-                        <tr>
-                            <th>Recurso</th>
-                            <th>Cantidad</th>
-                            <th>Valor total</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        @foreach (var reservaRecurso in Model.ReservaRecursos)
-                        {
+    <div>
+        <h4 class="text-dark">Reserva</h4>
+        <hr class="border-dark" />
+        <dl class="row">
+            <dt class="col-sm-2 text-dark">
+                @Html.DisplayNameFor(model => model.Fecha)
+            </dt>
+            <dd class="col-sm-10">
+                @Html.DisplayFor(model => model.Fecha)
+            </dd>
+            <dt class="col-sm-2 text-dark">
+                @Html.DisplayNameFor(model => model.HoraInicio)
+            </dt>
+            <dd class="col-sm-10">
+                @Html.DisplayFor(model => model.HoraInicio)
+            </dd>
+            <dt class="col-sm-2 text-dark">
+                @Html.DisplayNameFor(model => model.HoraFin)
+            </dt>
+            <dd class="col-sm-10">
+                @Html.DisplayFor(model => model.HoraFin)
+            </dd>
+            <dt class="col-sm-2 text-dark">
+                @Html.DisplayNameFor(model => model.Precio)
+            </dt>
+            <dd class="col-sm-10">
+                @Html.DisplayFor(model => model.Precio)
+            </dd>
+            <dt class="col-sm-2 text-dark">
+                @Html.DisplayNameFor(model => model.Instalacion)
+            </dt>
+            <dd class="col-sm-10">
+                @Html.DisplayFor(model => model.Instalacion.NombreIns)
+            </dd>
+            <dt class="col-sm-2 text-dark">
+                @Html.DisplayNameFor(model => model.Usuario)
+            </dt>
+            <dd class="col-sm-10">
+                @Html.DisplayFor(model => model.Usuario.NombreUsu)
+            </dd>
+
+            <dt class="col-sm-2 text-dark">
+                Recursos reservados
+            </dt>
+            <dd class="col-sm-10">
+                @if (Model.ReservaRecursos != null && Model.ReservaRecursos.Any())
+                {
+                    <table class="table">
+                        <thead>
                             <tr>
-                                <td>@reservaRecurso.Recurso.NombreRec</td> <!-- Asegúrate de que tu modelo Recurso tenga una propiedad Nombre -->
-                                <td>@reservaRecurso.Cantidad</td>
-                                <td>@reservaRecurso.ValorTotalRecurso</td>
+                                <th>Recurso</th>
+                                <th>Cantidad</th>
+                                <th>Valor total</th>
                             </tr>
-                        }
-                    </tbody>
-                </table>
-            }
-            else
-            {
-                <p>No se reservaron recursos.</p>
-            }
-        </dd>
-         <dt class = "col-sm-2">
-            Valor total de la reserva
-        </dt>
-        <dd class = "col-sm-10">
-            @(Model.ReservaRecursos.Sum(rr => rr.ValorTotalRecurso) + Model.Precio)
-        </dd>
-    </dl>
-</div>
-<div>
-    <a asp-action="Edit" asp-route-id="@Model?.ReservaId">Edit</a> |
-    <a asp-action="Index">Back to List</a>
+                        </thead>
+                        <tbody>
+                            @foreach (var reservaRecurso in Model.ReservaRecursos)
+                            {
+                                <tr>
+                                    <td>@reservaRecurso.Recurso.NombreRec</td>
+                                    <td>@reservaRecurso.Cantidad</td>
+                                    <td>@reservaRecurso.ValorTotalRecurso</td>
+                                </tr>
+                            }
+                        </tbody>
+                    </table>
+                }
+                else
+                {
+                    <p>No se reservaron recursos.</p>
+                }
+            </dd>
+            <dt class="col-sm-2 text-dark">
+                Valor total de la reserva
+            </dt>
+            <dd class="col-sm-10">
+                @(Model.ReservaRecursos.Sum(rr => rr.ValorTotalRecurso) + Model.Precio)
+            </dd>
+        </dl>
+    </div>
+    <div class="mt-3">
+        <a asp-action="Edit" asp-route-id="@Model?.ReservaId" class="btn btn-dark">Edit</a>
+        <a asp-action="Index" class="btn btn-secondary">Back to List</a>
+    </div>
 </div>

@@ -8,14 +8,14 @@ public partial class Usuario
 {
     public int UsuarioId { get; set; }
 
-    [Required(ErrorMessage = "El nombre es requerido")]
+   [Required(ErrorMessage = "El nombre es requerido")]
     public string NombreUsu { get; set; }
 
-    [Required(ErrorMessage = "La cédula es requerida")]
+   [Required(ErrorMessage = "La cédula es requerida")]
     [StringLength(10, MinimumLength = 10, ErrorMessage = "La cédula debe tener 10 dígitos")]
     public string CedulaUsu { get; set; }
 
-    [Required(ErrorMessage = "El correo electrónico es requerido")]
+      [Required(ErrorMessage = "El correo electrónico es requerido")]
     [EmailAddress(ErrorMessage = "Correo electrónico no válido.Recuerde colocar @")]
     public string EmailUsu { get; set; }
 

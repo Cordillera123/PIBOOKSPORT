@@ -1,5 +1,76 @@
 @{
     ViewBag.Title = "Página de Super Admin";
+    Layout = "_Layout";
 }
 
-<h2>Bienvenido a la página de Super Admin</h2>
+<style>
+    body {
+        font-family: 'Poppins', sans-serif;
+        background-color: #f8f9fa;
+        margin: 0;
+        padding: 0;
+    }
+
+    .container {
+        display: flex;
+        height: 100vh;
+    }
+
+    .sidebar {
+        width: 200px;
+        height: 100%;
+        background-color: #343a40;
+        padding: 20px;
+        overflow: auto;
+        position: fixed;
+        color: #f8f9fa;
+        z-index: 1000; /* Asegúrate de que la barra lateral esté por encima del contenido */
+    }
+
+    .sidebar h2 {
+        color: #ffffff;
+        margin-bottom: 20px;
+    }
+
+    .sidebar p {
+        margin: 10px 0;
+    }
+
+    .sidebar a {
+        text-decoration: none;
+        color: #f8f9fa;
+        transition: color 0.3s ease;
+    }
+
+    .sidebar a:hover {
+        color: #007bff;
+    }
+
+    .content {
+        flex-grow: 1;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        text-align: center;
+        margin-left: 200px;
+    }
+
+    .content h1 {
+        color: #343a40;
+    }
+</style>
+
+<div class="container">
+    <div class="sidebar">
+        <h2>Super Admin</h2>
+        <p><a href="@Url.Action("Index", "Instalacions")">Gestionar Instalaciones</a></p>
+        <p><a href="@Url.Action("Index", "Perfils")">Gestionar Perfiles</a></p>
+        <p><a href="@Url.Action("Index", "Usuarios")">Gestionar Usuarios</a></p>
+        <p><a href="@Url.Action("Index", "Reservas")">Gestionar Reservas</a></p>
+        <p><a href="@Url.Action("Index", "Recursos")">Gestionar Recursos</a></p>
+    </div>
+
+    <div class="content">
+        <h1>Bienvenido al perfil de Super Admin</h1>
+    </div>
+</div>

@@ -1,60 +1,63 @@
 ﻿@model IntegradorP.Models.Reserva
 
 @{
-    ViewData["Title"] = "Create";
+    ViewData["Title"] = "Crear Reserva";
 }
 
-<h1>CREAR RESERVA</h1>
-
-
+<div class="container">
+    <div class="row">
+        <div class="col-md-6 offset-md-3 text-center">
+            <h1 class="my-4">CREAR RESERVA</h1>
+        </div>
+    </div>
 <hr />
+
 <div class="row">
-    <div class="col-md-4">
-        <form asp-action="Create">
+    <div class="col-md-6 offset-md-3">
+        <form asp-action="Create" class="needs-validation" novalidate>
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
 
-            <div class="form-group">
-                <label asp-for="Fecha" class="control-label"></label>
-                <input asp-for="Fecha" type="date" class="form-control" />
+            <div class="mb-3">
+                <label asp-for="Fecha" class="form-label">Fecha</label>
+                <input asp-for="Fecha" type="date" class="form-control" required />
                 <span asp-validation-for="Fecha" class="text-danger"></span>
             </div>
 
-            <div class="form-group">
-                <label asp-for="HoraInicio" class="control-label"></label>
-                <input asp-for="HoraInicio" type="time" class="form-control"  />
+            <div class="mb-3">
+                <label asp-for="HoraInicio" class="form-label">Hora de Inicio</label>
+                <input asp-for="HoraInicio" type="time" class="form-control" required />
                 <span asp-validation-for="HoraInicio" class="text-danger"></span>
             </div>
 
-            <div class="form-group">
-                <label asp-for="HoraFin" class="control-label"></label>
-                <input asp-for="HoraFin" type="time" class="form-control" />
+            <div class="mb-3">
+                <label asp-for="HoraFin" class="form-label">Hora de Fin</label>
+                <input asp-for="HoraFin" type="time" class="form-control" required />
                 <span asp-validation-for="HoraFin" class="text-danger"></span>
             </div>
 
-            <div class="form-group">
-                <label asp-for="UsuarioId" class="control-label"></label>
-                <select asp-for="UsuarioId" class="form-control" asp-items="ViewBag.UsuarioId"></select>
+            <div class="mb-3">
+                <label asp-for="UsuarioId" class="form-label">Usuario</label>
+                <select asp-for="UsuarioId" class="form-select" asp-items="ViewBag.UsuarioId" required></select>
+                <span asp-validation-for="UsuarioId" class="text-danger"></span>
             </div>
 
-            @* Campo Precio oculto *@
             <input asp-for="Precio" type="hidden" />
 
-            <div class="form-group">
-                <label asp-for="InstalacionId" class="control-label"></label>
-                <select asp-for="InstalacionId" class="form-control" asp-items="ViewBag.InstalacionId"></select>
+            <div class="mb-3">
+                <label asp-for="InstalacionId" class="form-label">Instalación</label>
+                <select asp-for="InstalacionId" class="form-select" asp-items="ViewBag.InstalacionId" required></select>
+                <span asp-validation-for="InstalacionId" class="text-danger"></span>
             </div>
 
-           
-
-            <div class="form-group">
-                <input type="submit" value="Create" class="btn btn-primary" />
+            <div class="mb-3">
+                <button type="submit" class="btn btn-primary">Crear Reserva</button>
             </div>
         </form>
     </div>
 </div>
 
-<div>
-    <a asp-action="Index">Back to List</a>
+<div class="mt-3">
+    <a asp-action="Index" class="btn btn-secondary">Volver a la Lista</a>
 </div>
 
 @section Scripts {

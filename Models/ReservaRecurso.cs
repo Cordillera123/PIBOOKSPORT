@@ -11,8 +11,9 @@ public partial class ReservaRecurso
 
     public int? RecursoId { get; set; }
 
-    public int? Cantidad { get; set; }
     public double? ValorTotalRecurso { get; set; }
+
+    public int? Cantidad { get; set; }
 
     public virtual Recurso? Recurso { get; set; }
 
