@@ -45,9 +45,9 @@ public async Task<ActionResult> Registrar(Usuario usuario)
                         return View("Registrar", usuario);
                     }
                 }
-
+                int newUserId ;
                 // Crear el nuevo usuario
-                using (SqlCommand cmd = new SqlCommand("crear_usuario", con))
+                using (SqlCommand cmd = new SqlCommand("crear_usuariothree", con))
                 {
                     cmd.CommandType = CommandType.StoredProcedure;
                     cmd.Parameters.Add("@NombreUsu", SqlDbType.VarChar).Value = usuario.NombreUsu;
@@ -55,7 +55,7 @@ public async Task<ActionResult> Registrar(Usuario usuario)
                     cmd.Parameters.Add("@EmailUsu", SqlDbType.VarChar).Value = usuario.EmailUsu;
                     cmd.Parameters.Add("@Password", SqlDbType.VarChar).Value = usuario.Password;
                     con.Open();
-                    int newUserId = Convert.ToInt32(cmd.ExecuteScalar());
+                     newUserId = Convert.ToInt32(cmd.ExecuteScalar());
                     con.Close();
 
                     // Insertar el nuevo usuario en la tabla UsuarioPerfil con el perfil de ID 3
@@ -70,11 +70,11 @@ public async Task<ActionResult> Registrar(Usuario usuario)
 
                 // Iniciar sesión después de registrar al usuario
                 var claims = new List<Claim>
-                {
+               {
                     new Claim(ClaimTypes.Name, usuario.NombreUsu),
                     new Claim(ClaimTypes.Email, usuario.EmailUsu),
-                    new Claim("Cedula", usuario.CedulaUsu)
-                    // Agrega más claims según sea necesario
+                    new Claim("Cedula", usuario.CedulaUsu),
+                    new Claim(ClaimTypes.NameIdentifier, newUserId.ToString()),
                 };
 
                 var claimsIdentity = new ClaimsIdentity(
@@ -87,11 +87,13 @@ public async Task<ActionResult> Registrar(Usuario usuario)
                     new ClaimsPrincipal(claimsIdentity), 
                     authProperties);
             }
-            return RedirectToAction("Create", "Reservas");
+            return RedirectToAction("Index", "Reservas");
         }
     }
-    catch(Exception)
+    catch(Exception ex)
     {
+        // Imprime el mensaje de la excepción en la consola
+        Console.WriteLine(ex.Message);
         ViewData["error"] = "Error al registrar el usuario";
         return View("Registrar");
     }
@@ -132,21 +134,36 @@ public async Task<ActionResult> Login(LoginResult l)
                         // Almacenar el tipo de usuario en una cookie
                         Response.Cookies.Append("User", "BIENVENIDO " + l.EmailUsu);
 
-                        // Set user identity
-                        var claims = new List<Claim>
+                        // Obtener el ID del usuario
+                        using (SqlCommand cmdGetUserId = new SqlCommand("GetUserId", con))
                         {
-                            new Claim(ClaimTypes.Name, l.EmailUsu)
-                        };
+                            cmdGetUserId.CommandType = CommandType.StoredProcedure;
+                            cmdGetUserId.Parameters.Add("@EmailUsu", SqlDbType.VarChar).Value = l.EmailUsu;
+                            cmdGetUserId.Parameters.Add("@Password", SqlDbType.VarChar).Value = l.Password;
+                            var outputUserId = cmdGetUserId.Parameters.Add("@UsuarioId", SqlDbType.Int);
+                            outputUserId.Direction = ParameterDirection.Output;
 
-                        var claimsIdentity = new ClaimsIdentity(
-                            claims, CookieAuthenticationDefaults.AuthenticationScheme);
+                            cmdGetUserId.ExecuteNonQuery();
 
-                        var authProperties = new AuthenticationProperties();
+                            var userId = outputUserId.Value;
 
-                        await HttpContext.SignInAsync(
-                            CookieAuthenticationDefaults.AuthenticationScheme, 
-                            new ClaimsPrincipal(claimsIdentity), 
-                            authProperties);
+                            // Set user identity
+                            var claims = new List<Claim>
+                            {
+                                new Claim(ClaimTypes.Name, l.EmailUsu),
+                                new Claim(ClaimTypes.NameIdentifier, userId.ToString())
+                            };
+
+                            var claimsIdentity = new ClaimsIdentity(
+                                claims, CookieAuthenticationDefaults.AuthenticationScheme);
+
+                            var authProperties = new AuthenticationProperties();
+
+                            await HttpContext.SignInAsync(
+                                CookieAuthenticationDefaults.AuthenticationScheme, 
+                                new ClaimsPrincipal(claimsIdentity), 
+                                authProperties);
+                        }
 
                         // Redirigir al usuario a diferentes páginas dependiendo de su tipo
                         if (userType.ToString() == "Cliente")

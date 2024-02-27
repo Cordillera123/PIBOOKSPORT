@@ -7,10 +7,46 @@
 <div class="container">
     <div class="row">
         <div class="col-md-6 offset-md-3 text-center">
-            <h1 class="my-4">CREAR RESERVA</h1>
+            <h1 class="my-4">GENERA LA RESERVA</h1>
+
         </div>
     </div>
 <hr />
+
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
+  
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600&display=swap" rel="stylesheet">
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
+
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600&display=swap" rel="stylesheet">
+
+  <style>
+    :root {
+      --primary: #334163;
+      --light: #f8f9fa;
+      --dark: #1f2029; 
+    }
+
+    body {
+      font-family: 'Poppins', sans-serif;
+      background-color: var(--dark);
+      color: var(--light);  
+    }
+
+    .form-control, 
+    .form-select {
+      background: transparent; 
+      color: #fff;
+    }
+
+    .btn {
+      background-color: #ffeba7;
+      border-color: var(--primary);
+    }
+
+  </style>
+
+
 
 <div class="row">
     <div class="col-md-6 offset-md-3">
@@ -35,12 +71,6 @@
                 <span asp-validation-for="HoraFin" class="text-danger"></span>
             </div>
 
-            <div class="mb-3">
-                <label asp-for="UsuarioId" class="form-label">Usuario</label>
-                <select asp-for="UsuarioId" class="form-select" asp-items="ViewBag.UsuarioId" required></select>
-                <span asp-validation-for="UsuarioId" class="text-danger"></span>
-            </div>
-
             <input asp-for="Precio" type="hidden" />
 
             <div class="mb-3">
@@ -50,7 +80,7 @@
             </div>
 
             <div class="mb-3">
-                <button type="submit" class="btn btn-primary">Crear Reserva</button>
+                <button type="submit" class="btn btn-primary">Guardar</button>
             </div>
         </form>
     </div>

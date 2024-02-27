@@ -6,6 +6,7 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Data.SqlClient;
 using System.Data;
 using IntegradorP.Models;
+using System.Security.Claims;
 
 namespace IntegradorP.Controllers
 {
@@ -21,21 +22,38 @@ namespace IntegradorP.Controllers
 
 public async Task<IActionResult> Index()
 {
-    var reservas = await _context.Reservas
-        .Include(r => r.Usuario)
-        .Include(r => r.Instalacion)
-        .ToListAsync();
+    // Obtén el rol del usuario de la cookie
+    var userRole = Request.Cookies["User"];
 
-    if (reservas != null)
+    // Si el usuario es un superAdmin, muestra todas las reservas
+    if (userRole == "Super admin")
     {
-        return View(reservas);
+        var reservas = _context.Reservas
+            .Include(r => r.Instalacion)
+            .Include(r => r.Usuario);
+
+        return View(await reservas.ToListAsync());
     }
+
+    // Si el usuario está registrado pero no es un superAdmin, muestra solo sus reservas
+    else if (!string.IsNullOrEmpty(userRole))
+    {
+        var userId = User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
+        var userReservas = _context.Reservas
+            .Include(r => r.Instalacion)
+            .Include(r => r.Usuario)
+            .Where(r => r.UsuarioId == int.Parse(userId));
+
+        return View(await userReservas.ToListAsync());
+    }
+    // Si el usuario no está registrado, devuelve una vista vacía
     else
     {
-        return Problem("Entity set 'BaseDatosProyectoContext.Reservas' is null.");
+        return View(new List<Reserva>());
     }
-}
 
+    
+}
 // GET: Reservas/Details/5
 // GET: Reservas/Details/5
 public async Task<IActionResult> Details(int? id)
@@ -71,9 +89,13 @@ public async Task<IActionResult> Details(int? id)
 // POST: Reservas/Create
 [HttpPost]
 [ValidateAntiForgeryToken]
-
-public async Task<IActionResult> Create([Bind("ReservaId,Fecha,HoraInicio,HoraFin,UsuarioId,InstalacionId")] Reserva reserva)
+public async Task<IActionResult> Create([Bind("ReservaId,Fecha,HoraInicio,HoraFin,InstalacionId")] Reserva reserva)
 {
+    // Obtén el ID del usuario del claim y asigna el UsuarioId de la reserva
+    var userId = User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
+    
+    reserva.UsuarioId = int.Parse(userId);
+
     // Verifica si la fecha y hora de inicio de la reserva son anteriores a la fecha y hora actual
     if ((reserva.Fecha ?? DateTime.MinValue).Date < DateTime.Now.Date || ((reserva.Fecha ?? DateTime.MinValue).Date == DateTime.Now.Date && (reserva.HoraInicio ?? TimeSpan.Zero) <= DateTime.Now.TimeOfDay))
     {
@@ -120,8 +142,15 @@ public async Task<IActionResult> Create([Bind("ReservaId,Fecha,HoraInicio,HoraFi
         await _context.Database.ExecuteSqlRawAsync("EXEC CalculateReservationPrice @StartTime, @EndTime, @PricePerHour, @TotalPrice OUT", 
             startTimeParam, endTimeParam, pricePerHourParam, totalPriceParam);
 
-        // Asigna el precio total a la reserva
+  
+         // Asigna el precio total a la reserva
         reserva.Precio = Convert.ToDouble(totalPriceParam.Value);
+
+        // Calcula el valor total de los recursos reservados
+        var totalResourceValue = reserva.ReservaRecursos.Sum(rr => rr.ValorTotalRecurso);
+
+        // Suma el precio de la reserva y el valor total de los recursos reservados
+        reserva.ValorTotalReserva = reserva.Precio + totalResourceValue;
 
         _context.Add(reserva);
         await _context.SaveChangesAsync();
