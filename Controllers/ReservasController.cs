@@ -22,37 +22,23 @@ namespace IntegradorP.Controllers
 
 public async Task<IActionResult> Index()
 {
-    // Obtén el rol del usuario de la cookie
-    var userRole = Request.Cookies["User"];
-
-    // Si el usuario es un superAdmin, muestra todas las reservas
-    if (userRole == "Super admin")
+    // Verifica si el usuario está logueado
+    if (Request.Cookies["UserId"] != null)
     {
-        var reservas = _context.Reservas
-            .Include(r => r.Instalacion)
-            .Include(r => r.Usuario);
-
-        return View(await reservas.ToListAsync());
-    }
-
-    // Si el usuario está registrado pero no es un superAdmin, muestra solo sus reservas
-    else if (!string.IsNullOrEmpty(userRole))
-    {
-        var userId = User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
+        var userIdStr = Request.Cookies["UserId"];
+        var userId = int.Parse(userIdStr);
         var userReservas = _context.Reservas
             .Include(r => r.Instalacion)
             .Include(r => r.Usuario)
-            .Where(r => r.UsuarioId == int.Parse(userId));
+            .Where(r => r.UsuarioId == userId);
 
         return View(await userReservas.ToListAsync());
     }
-    // Si el usuario no está registrado, devuelve una vista vacía
+    // Si el usuario no está logueado, redirige a la página de inicio de sesión
     else
     {
-        return View(new List<Reserva>());
+        return RedirectToAction("Login", "Accounts");
     }
-
-    
 }
 // GET: Reservas/Details/5
 // GET: Reservas/Details/5
@@ -450,6 +436,27 @@ public async Task<IActionResult> Edit(int id, Reserva reserva, int[] RecursoId, 
             return View(reserva);
         }
 
+
+
+public async Task<ActionResult> Baucher(int id)
+{
+    // Obtén la reserva por su ID, incluyendo los datos relacionados
+    var reserva = await _context.Reservas
+        .Include(r => r.ReservaRecursos) // Incluye los ReservaRecurso relacionados
+            .ThenInclude(rr => rr.Recurso) // Incluye el Recurso relacionado con cada ReservaRecurso
+        .Include(r => r.Usuario) // Incluye el Usuario relacionado
+        .Include(r => r.Instalacion) // Incluye la Instalacion relacionada
+        .FirstOrDefaultAsync(m => m.ReservaId == id);
+
+    // Si la reserva no existe, redirige al usuario a una página de error
+    if (reserva == null)
+    {
+        return NotFound();
+    }
+
+    return View(reserva);
+}
+
       // POST: Reservas1/Delete/5
 [HttpPost, ActionName("Delete")]
 [ValidateAntiForgeryToken]
@@ -487,6 +494,7 @@ public async Task<IActionResult> DeleteConfirmed(int id)
         // Puedes registrar el error o mostrar un mensaje de error al usuario
         return Problem($"Error al eliminar la reserva: {ex.Message}");
     }
+    
 }
         private bool ReservaExists(int id)
         {

@@ -1,31 +1,44 @@
 ﻿@model IntegradorP.Models.Reserva
 
 @{
-    ViewData["Title"] = "Details";
+    ViewData["Title"] = "Comprobante";
 }
 
 <div class="container">
-    <h1 class="text-dark">Detalles de la Reserva</h1>
+    <h1 class="text-dark">Baucher de la reserva</h1>
     <hr class="border-dark" />
 
     <div>
-        <h4 class="text-dark">Reserva</h4>
+        <h4 class="text-dark">REIZICANCHAS</h4>
         <hr class="border-dark" />
         <dl class="row">
             <dt class="col-sm-2 text-dark">
-                @Html.DisplayNameFor(model => model.Fecha)
+                Codigo de la reserva
             </dt>
             <dd class="col-sm-10">
-                @Html.DisplayFor(model => model.Fecha)
-            </dd>
+                @Html.DisplayFor(model => model.ReservaId)
+            </dd>   
+<dt class="col-sm-2 text-dark">
+    Fecha de la reserva
+</dt>
+<dd class="col-sm-10">
+    @if (Model.Fecha != null)
+    {
+        @Model.Fecha.Value.ToShortDateString()
+    }
+    else
+    {
+        @:N/A
+    }
+</dd>
             <dt class="col-sm-2 text-dark">
-                @Html.DisplayNameFor(model => model.HoraInicio)
+                Hora de inicio
             </dt>
             <dd class="col-sm-10">
                 @Html.DisplayFor(model => model.HoraInicio)
             </dd>
             <dt class="col-sm-2 text-dark">
-                @Html.DisplayNameFor(model => model.HoraFin)
+                Hora de fin
             </dt>
             <dd class="col-sm-10">
                 @Html.DisplayFor(model => model.HoraFin)
@@ -43,10 +56,10 @@
                 @Html.DisplayFor(model => model.Instalacion.NombreIns)
             </dd>
             <dt class="col-sm-2 text-dark">
-                @Html.DisplayNameFor(model => model.Usuario)
+               Cedula
             </dt>
             <dd class="col-sm-10">
-                @Html.DisplayFor(model => model.Usuario.NombreUsu)
+                @Html.DisplayFor(model => model.Usuario.CedulaUsu)
             </dd>
 
             <dt class="col-sm-2 text-dark">
@@ -89,7 +102,11 @@
         </dl>
     </div>
     <div class="mt-3">
-        <a asp-action="Edit" asp-route-id="@Model?.ReservaId" class="btn btn-dark">Edit</a>
-        <a asp-action="Index" class="btn btn-secondary">Back to List</a>
+        <a asp-action="Edit" asp-route-id="@Model?.ReservaId" class="btn btn-dark">Editar la reserva</a>
+        <a asp-action="Index" class="btn btn-secondary">Volver a la lista</a>
+        
     </div>
+
 </div>
+
+

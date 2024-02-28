@@ -7,6 +7,8 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Authentication;
 using System.Security.Claims;
+using System.ComponentModel.DataAnnotations;
+
 
 public class AccountsController : Controller
 {
@@ -26,6 +28,11 @@ public async Task<ActionResult> Registrar(Usuario usuario)
 {
     try
     {
+        // Agrega la validación de la cédula aquí
+    if (ValidacionCedula.EsCedulaValida(usuario.CedulaUsu) != ValidationResult.Success)
+{
+    ModelState.AddModelError("CedulaUsu", "La cédula no es válida");
+}
         if (ModelState.IsValid)
         {
             using (SqlConnection con = new SqlConnection(_context.Database.GetDbConnection().ConnectionString))
@@ -147,6 +154,7 @@ public async Task<ActionResult> Login(LoginResult l)
 
                             var userId = outputUserId.Value;
 
+                            Response.Cookies.Append("UserId", userId.ToString());
                             // Set user identity
                             var claims = new List<Claim>
                             {
@@ -168,11 +176,11 @@ public async Task<ActionResult> Login(LoginResult l)
                         // Redirigir al usuario a diferentes páginas dependiendo de su tipo
                         if (userType.ToString() == "Cliente")
                         {
-                            return RedirectToAction("Create", "Reservas");
+                            return RedirectToAction("Index", "Reservas");
                         }
                         else if (userType.ToString() == "Otro")
                         {
-                            return RedirectToAction("Create", "Reservas");
+                            return RedirectToAction("Index", "Reservas");
                         }
                         else if (userType.ToString() == "Super admin")
                         {
@@ -206,7 +214,8 @@ public async Task<ActionResult> Login(LoginResult l)
     public async Task<ActionResult> Logout()
 {
     await HttpContext.SignOutAsync(CookieAuthenticationDefaults.AuthenticationScheme);
-    Response.Cookies.Delete("User");  
+    Response.Cookies.Delete("User"); 
+    Response.Cookies.Delete("UserId");  // Asegúrate de eliminar la cookie UserId cuando el usuario cierre sesión 
     return RedirectToAction("Index", "Home");
 }
 

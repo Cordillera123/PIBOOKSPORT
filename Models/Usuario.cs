@@ -13,6 +13,7 @@ public partial class Usuario
 
    [Required(ErrorMessage = "La cédula es requerida")]
     [StringLength(10, MinimumLength = 10, ErrorMessage = "La cédula debe tener 10 dígitos")]
+    [CustomValidation(typeof(ValidacionCedula), "EsCedulaValida")]
     public string CedulaUsu { get; set; }
 
       [Required(ErrorMessage = "El correo electrónico es requerido")]

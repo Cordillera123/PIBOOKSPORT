@@ -44,11 +44,11 @@ button.accept-policy[b-szhdly13kp] {
 }
 
 .footer[b-szhdly13kp] {
-  background-color: #211f1f; /* Color oscuro para el pie de página */
-  position: absolute;
-  bottom: 0;
-  width: 100%;
-  white-space: nowrap;
-  line-height: 60px;
-  color: #c4c3ca; /* Color del texto para el pie de página */
+  background-color: #231d35;
+  width: 100%; 
+  height: 30px; /* Reducido a 30px */
+  padding: 5px 10px; /* Agregado de padding */
+  line-height: 20px; /* Reducido a 20px para centrar texto */
+  color: #c4c3ca;
+  font-size: 14px; /* Texto más pequeño */
 }

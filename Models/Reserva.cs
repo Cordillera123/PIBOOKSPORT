@@ -6,8 +6,11 @@ namespace IntegradorP.Models;
 
 public partial class Reserva
 {
+   
     public int ReservaId { get; set; }
+    
 
+[Display(Name = "Fecha de la reserva")]
      [Required(ErrorMessage = "La fecha de la reserva es requerida")]
 
     public DateTime? Fecha { get; set; }
